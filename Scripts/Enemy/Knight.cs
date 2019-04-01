@@ -3,14 +3,16 @@
 public class Knight : Enemy, IDamagable<int>
 {
     public int Health { get; set; }
+    
     Rigidbody rb;
     [SerializeField] private CannonData[] cannonData;
 
     void Start()
     {
+
         Health = enemyHealth;
         rb = GetComponent<Rigidbody>();         
-        Physics.IgnoreLayerCollision(9, 9); //no collision between enemies which stay at 9 layer
+        Physics.IgnoreLayerCollision(enemyLayerNumber, enemyLayerNumber); //no collision between enemies which stay at 9 layer
     }
     
     private void OnTriggerEnter(Collider other)

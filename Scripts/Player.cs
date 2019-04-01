@@ -21,6 +21,8 @@ public class Player : MonoBehaviour, IDamagable<int>
         CheckState();
     }
 
+    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "EnemyProjectile")
@@ -60,6 +62,7 @@ public class Player : MonoBehaviour, IDamagable<int>
 
     public void Damage(int damageAmount)
     {
+        Debug.Log("strike!!!");
         Health -= damageAmount;
         currentHealth = Health;
     }

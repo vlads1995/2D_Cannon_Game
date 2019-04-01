@@ -4,12 +4,15 @@ using UnityStandardAssets.CrossPlatformInput;
 public class CannonController : MonoBehaviour 
 {
     const float PI = 3.141592f;
+    const int fullTurn = 360;
+    const int negative = -1;
+    const int startScale = 1;
 
     public GameObject forcePanel;
-    public static int speed;    
-    public static bool isCannonChoosen = false; 
+    public static int _speed;    
+    public static bool isCannonChoosen = false;     
     
-    private bool isCanShoot = true;
+    public static bool isCanShoot = true;
     private int _maxForce;
     private float _currentForce;
     private string _cannonName;
@@ -36,7 +39,7 @@ public class CannonController : MonoBehaviour
             {
                 if (_cannonName == cannonInDatabase.CannonName)
                 {
-                    speed = cannonInDatabase.CannonSpeed;
+                    _speed = cannonInDatabase.CannonSpeed;
                     _maxForce = cannonInDatabase.CannonForce;
                     _reloadTime = cannonInDatabase.CannonReloadTime;
                     _currentProjectile = cannonInDatabase.CannonProjectile;
@@ -55,21 +58,22 @@ public class CannonController : MonoBehaviour
         float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
         float verticalInput = CrossPlatformInputManager.GetAxis("Vertical");
         
-        float xRotAngle = transform.rotation.x * 360 / PI;
-        float yRotAngle = transform.rotation.y * 360 / PI;         
+        float xRotAngle = transform.rotation.x * fullTurn / PI;
+        float yRotAngle = transform.rotation.y * fullTurn / PI;         
  
         Quaternion from = Quaternion.Euler(xRotAngle, yRotAngle, 0);
-        Quaternion to = Quaternion.Euler(verticalBorder * -1 * verticalInput, horizontalBorder * horizontalInput, 0);
+        Quaternion to = Quaternion.Euler(verticalBorder * negative * verticalInput, horizontalBorder * horizontalInput, 0);
          
         if (horizontalInput != 0 || verticalInput != 0)
         {
-            transform.rotation = Quaternion.Lerp(from, to, Time.deltaTime * speed);
+            transform.rotation = Quaternion.Lerp(from, to, Time.deltaTime * _speed);
         }
   
     }
 
     private void Shoot()
     {
+
         if (Input.GetKey(KeyCode.Space)  && isCanShoot == true)   
         {
             FillForcePanel();
@@ -77,7 +81,7 @@ public class CannonController : MonoBehaviour
 
         if (_currentProjectile != null && isCanShoot == true && Input.GetKeyUp(KeyCode.Space))
         {            
-            forcePanel.transform.localScale = new Vector3(1,1,1);
+            forcePanel.transform.localScale = new Vector3(startScale, startScale, startScale);
             isCanShoot = false;            
             Rigidbody projectileRB;
             Vector3 direction = Crosshair.currentPos - SpawnPoint.spawnPointPosition;               
@@ -93,10 +97,11 @@ public class CannonController : MonoBehaviour
     private void FillForcePanel()
     {
         int forcePanelMaxScale = 30;
+        
         if (_currentForce <= _maxForce)
         {
             _currentForce += 1f;
-            forcePanel.transform.localScale = new Vector3(1, _currentForce / _maxForce * forcePanelMaxScale, 1);
+            forcePanel.transform.localScale = new Vector3(startScale, _currentForce / _maxForce * forcePanelMaxScale, startScale);
         }               
     }
 

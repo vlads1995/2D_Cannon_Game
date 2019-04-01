@@ -18,6 +18,8 @@ public class Crosshair : MonoBehaviour
     {
         float verticalBorder = 4f;
         float horizontalBorder = 6.5f;
+        float speedCorrecter = 0.5f;
+
         if (CannonController.isCannonChoosen != true) return;
 
         float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -29,7 +31,7 @@ public class Crosshair : MonoBehaviour
 
         if (horizontalInput != 0 || verticalInput != 0)
         {
-            transform.position = Vector3.Lerp(currentPos, newPos, CannonController.speed * 0.5f *  Time.deltaTime);            
+            transform.position = Vector3.Lerp(currentPos, newPos, CannonController._speed * speedCorrecter *  Time.deltaTime);            
         }
 
     }

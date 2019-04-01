@@ -5,6 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject enemyPlaceholer;
+    private float spawnTime = 8f;
     
     void Start()
     {
@@ -13,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
 
     public IEnumerator StartSpawn()
     {
-        yield return new WaitForSeconds(8.0f);
+        yield return new WaitForSeconds(spawnTime);
         Instantiate(enemyPlaceholer, Vector3.zero, Quaternion.identity);
         StartCoroutine(StartSpawn());
     }

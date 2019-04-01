@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
-{
+{    
     public static bool isNewGame = false;
     public static int Score = 0;
 
@@ -27,9 +27,9 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0;
             gameOverScoreText.text = "Score: " + Score;
             gameOverMenu.SetActive(true);
-
         }
     }
+    
 
     private void UpdateUIText()
     {

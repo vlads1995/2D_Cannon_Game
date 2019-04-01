@@ -2,7 +2,7 @@
 
 public class Archer : Enemy  
 {
-    public int Health { get; set; }
+    public int Health { get; set; }    
     Rigidbody rb;
     [SerializeField] private CannonData[] cannonData;
 
@@ -10,7 +10,7 @@ public class Archer : Enemy
     {
         Health = enemyHealth;             
         rb = GetComponent<Rigidbody>();
-        Physics.IgnoreLayerCollision(9, 9);
+        Physics.IgnoreLayerCollision(enemyLayerNumber, enemyLayerNumber);
     }       
 
     private void OnTriggerEnter(Collider other)

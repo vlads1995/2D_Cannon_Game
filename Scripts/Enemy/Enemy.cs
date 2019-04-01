@@ -2,11 +2,13 @@
 
 public class Enemy : MonoBehaviour  
 {
-    public GameObject newEnemy;
-        
+    const int negative = -1;
+
+    public GameObject newEnemy;        
     public int randomFloor;
     public GameObject enemyProjectile;
     public static int enemyHealth;
+    public int enemyLayerNumber = 9;
 
     private Vector3 _enemyPos;
     private int _randomValue;
@@ -113,6 +115,7 @@ public class Enemy : MonoBehaviour
 
     public void Move()
     {
+        float deltaPos = 0.1f;
 
         if (_enemySpeed != 0 && newEnemy != null)
         {
@@ -125,13 +128,13 @@ public class Enemy : MonoBehaviour
 
                 if (newEnemy.transform.position.x >= bottomFloorBorderXPos)
                 {
-                    newEnemy.transform.position = new Vector3(bottomFloorBorderXPos - 0.1f, newEnemy.transform.position.y, 0);
-                    _enemySpeed = _enemySpeed * -1;
+                    newEnemy.transform.position = new Vector3(bottomFloorBorderXPos - deltaPos, newEnemy.transform.position.y, 0);
+                    _enemySpeed = _enemySpeed * negative;
                 }
                 if (newEnemy.transform.position.x <= -bottomFloorBorderXPos)
                 {
-                    newEnemy.transform.position = new Vector3(-bottomFloorBorderXPos + 0.1f, newEnemy.transform.position.y, 0);
-                    _enemySpeed = _enemySpeed * -1;
+                    newEnemy.transform.position = new Vector3(-bottomFloorBorderXPos + deltaPos, newEnemy.transform.position.y, 0);
+                    _enemySpeed = _enemySpeed * negative;
                 }
             }
 
@@ -143,12 +146,12 @@ public class Enemy : MonoBehaviour
                 if (newEnemy.transform.position.x >= topFloorBorderXPos)
                 {
                     newEnemy.transform.position = new Vector3(topFloorBorderXPos - 0.1f, newEnemy.transform.position.y, 0);
-                    _enemySpeed = _enemySpeed * -1;
+                    _enemySpeed = _enemySpeed * negative;
                 }
                 if (newEnemy.transform.position.x <= -topFloorBorderXPos)
                 {
                     newEnemy.transform.position = new Vector3(-topFloorBorderXPos + 0.1f, newEnemy.transform.position.y, 0);
-                    _enemySpeed = _enemySpeed * -1;
+                    _enemySpeed = _enemySpeed * negative;
                 }
             }
 
