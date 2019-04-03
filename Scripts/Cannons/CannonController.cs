@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
 public class CannonController : MonoBehaviour 
 {
@@ -10,9 +9,11 @@ public class CannonController : MonoBehaviour
 
     public GameObject forcePanel;
     public static int _speed;    
-    public static bool isCannonChoosen = false;     
-    
+    public static bool isCannonChoosen = false;       
+    public Touch[] moveTouches;
     public static bool isCanShoot = true;
+
+    private Touch[] fireTouches;
     private int _maxForce;
     private float _currentForce;
     private string _cannonName;
@@ -21,8 +22,8 @@ public class CannonController : MonoBehaviour
     [SerializeField] private CannonData[] cannonData;     
    
     void Update()
-    {             
-        MoveCannon();                
+    {
+        MoveMobile();                
     }
 
     private void FixedUpdate()  //cause Shoot() using physics
@@ -47,60 +48,81 @@ public class CannonController : MonoBehaviour
                 }
             }
         }
-    }     
+    }
 
-    private void MoveCannon()
+    private void MoveMobile()
     {
-        int verticalBorder = 7;
-        int horizontalBorder = 15;
+        float speedCorrecter = 0.2f;
+        float posCorrecter = 4f;
         if (isCannonChoosen != true) return;
-        
-        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
-        float verticalInput = CrossPlatformInputManager.GetAxis("Vertical");
-        
+
         float xRotAngle = transform.rotation.x * fullTurn / PI;
-        float yRotAngle = transform.rotation.y * fullTurn / PI;         
- 
-        Quaternion from = Quaternion.Euler(xRotAngle, yRotAngle, 0);
-        Quaternion to = Quaternion.Euler(verticalBorder * negative * verticalInput, horizontalBorder * horizontalInput, 0);
-         
-        if (horizontalInput != 0 || verticalInput != 0)
+        float yRotAngle = transform.rotation.y * fullTurn / PI;
+
+        if (Input.touchCount > 0)
         {
-            transform.rotation = Quaternion.Lerp(from, to, Time.deltaTime * _speed);
+            moveTouches = Input.touches;
+
+            foreach (var currenttouch in moveTouches)
+            {
+                if (currenttouch.phase == TouchPhase.Moved && currenttouch.position.x > Screen.width / 2)
+                {
+                    Quaternion from = Quaternion.Euler(xRotAngle, yRotAngle, 0);
+                    Quaternion to = Quaternion.Euler(negative * currenttouch.deltaPosition.y * posCorrecter, currenttouch.deltaPosition.x * posCorrecter, 0);
+
+                    if (currenttouch.deltaPosition.y != 0 || currenttouch.deltaPosition.x != 0)
+                    {
+                        transform.rotation = Quaternion.Lerp(from, to, Time.deltaTime * _speed * speedCorrecter);
+                    }
+                }
+
+            }
         }
-  
     }
 
     private void Shoot()
     {
 
-        if (Input.GetKey(KeyCode.Space)  && isCanShoot == true)   
+        if (Input.touchCount > 0)
         {
-            FillForcePanel();
+            fireTouches = Input.touches;
+
+            foreach (var currenttouch in fireTouches)
+            {
+
+                if ((currenttouch.phase == TouchPhase.Stationary || currenttouch.phase == TouchPhase.Moved) && isCanShoot == true && _maxForce != 0 && currenttouch.position.x < Screen.width / 2)
+                {
+                    FillForcePanel();
+                }
+
+                if (_currentProjectile != null && isCanShoot == true && currenttouch.phase == TouchPhase.Ended && currenttouch.position.x < Screen.width / 2)
+                {
+                    forcePanel.transform.localScale = new Vector3(startScale, startScale, startScale);
+                    isCanShoot = false;
+                    Rigidbody projectileRB;
+                    Vector3 direction = Crosshair.currentPos - SpawnPoint.spawnPointPosition;
+                    var Projectile = Instantiate(_currentProjectile, SpawnPoint.spawnPointPosition, Quaternion.identity);
+                    projectileRB = Projectile.GetComponent<Rigidbody>();
+                    projectileRB.AddForce(direction * _currentForce);
+
+
+                    Invoke("Reload", _reloadTime);
+                    _currentForce = 0f;
+                }
+
+            }
         }
 
-        if (_currentProjectile != null && isCanShoot == true && Input.GetKeyUp(KeyCode.Space))
-        {            
-            forcePanel.transform.localScale = new Vector3(startScale, startScale, startScale);
-            isCanShoot = false;            
-            Rigidbody projectileRB;
-            Vector3 direction = Crosshair.currentPos - SpawnPoint.spawnPointPosition;               
-            var Projectile = Instantiate(_currentProjectile, SpawnPoint.spawnPointPosition, Quaternion.identity);                
-            projectileRB = Projectile.GetComponent<Rigidbody>();              
-            projectileRB.AddForce(direction * _currentForce);
-
-            Invoke("Reload", _reloadTime);
-            _currentForce = 0f;
-        }
     }
+
 
     private void FillForcePanel()
     {
         int forcePanelMaxScale = 30;
-        
-        if (_currentForce <= _maxForce)
+        float startForce = 1f;
+        if (_currentForce <= _maxForce )
         {
-            _currentForce += 1f;
+            _currentForce += startForce;
             forcePanel.transform.localScale = new Vector3(startScale, _currentForce / _maxForce * forcePanelMaxScale, startScale);
         }               
     }

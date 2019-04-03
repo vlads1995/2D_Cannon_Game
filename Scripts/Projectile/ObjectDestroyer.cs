@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectDestroyer : MonoBehaviour
-{
-    
+{    
     void Start()
     {
         Destroy(this.gameObject, 2f);

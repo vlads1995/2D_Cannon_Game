@@ -2,13 +2,13 @@
 
 public class Player : MonoBehaviour, IDamagable<int>
 {
-    public int Health { get; set; }
-    private int playerHealth = 10;
+    public int Health { get; set; }    
     public static bool isGameOver = false;
     public static int currentHealth;
+
     [SerializeField]
     private EnemyData[] _enemyData;
-
+    private int playerHealth = 10;
 
     public void Start()
     {
@@ -19,9 +19,7 @@ public class Player : MonoBehaviour, IDamagable<int>
     public void Update()
     {
         CheckState();
-    }
-
-    
+    }    
 
     private void OnTriggerEnter(Collider other)
     {

@@ -45,7 +45,7 @@ public class Knight : Enemy, IDamagable<int>
         Health -= damageAmount;
     }
 
-    private void LateUpdate()
+    private new void LateUpdate()
     {
         if (Health <= 0)
         {

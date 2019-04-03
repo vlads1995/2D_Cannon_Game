@@ -86,11 +86,11 @@ public class Enemy : MonoBehaviour
     public void SpawnEnemy()
     {
         //boundary values ​​of floor
-        float spawnDownFloorLeftBorder = -5;
-        float spawnDownFloorRightBorder = 7;
+        float spawnDownFloorLeftBorder = -4;
+        float spawnDownFloorRightBorder = 6;
 
-        float spawnUpFloorLeftBorder = -3;
-        float spawnUpFloorRightBorder = 4;
+        float spawnUpFloorLeftBorder = -2;
+        float spawnUpFloorRightBorder = 3;
 
         float spawnDownFloorYPos = -0.9f;
         float spawnUpFloorYPos = 2.1f;
@@ -145,12 +145,12 @@ public class Enemy : MonoBehaviour
 
                 if (newEnemy.transform.position.x >= topFloorBorderXPos)
                 {
-                    newEnemy.transform.position = new Vector3(topFloorBorderXPos - 0.1f, newEnemy.transform.position.y, 0);
+                    newEnemy.transform.position = new Vector3(topFloorBorderXPos - deltaPos, newEnemy.transform.position.y, 0);
                     _enemySpeed = _enemySpeed * negative;
                 }
                 if (newEnemy.transform.position.x <= -topFloorBorderXPos)
                 {
-                    newEnemy.transform.position = new Vector3(-topFloorBorderXPos + 0.1f, newEnemy.transform.position.y, 0);
+                    newEnemy.transform.position = new Vector3(-topFloorBorderXPos + deltaPos, newEnemy.transform.position.y, 0);
                     _enemySpeed = _enemySpeed * negative;
                 }
             }
