@@ -1,7 +1,6 @@
-# 2D_Cannon_Game
+## 2D Cannon_Game (Android)
 
-2D шутер с возможностью выбора двух типов пушек с различными параметрами: скорость поворота, сила и размер снаряда и наносимый урон. В игре присутствует 2 типа врагов: статичный и подвижный. Подвижные враги стреляют по игроку. Если жизни игрока понизятся до 0, игра окончится. За уничтожение врага дается 1 очко. Для начала игры выберите оружие, нажав на кнопку ChooseCannon. Управление пушкой осуществляется в правой части экрана. Для зарядки пушки необходимо нажать в левую часть экрана, для выстрела - отпустить.
 
-На экране конца игры есть возможность поделиться в Facebook.
+2D shooter with a choice of two types of guns with various parameters: rotation speed, projectile strength and size, and damage inflicted. The game has 2 types of enemies: static and mobile. Movable enemies shoot at the player. If a player’s life drops to 0, the game will end. For each enemy your killed, score increases by 1. To start the game, select a weapon by clicking on the ChooseCannon button. The gun is controlled on the right side of the screen. To charge the gun you need to click on the left side of the screen, for a shot - release it.
 
-Код проекта можно посмотреть в папке Assets > Scripts Архив всего проекта находится в корневом каталоге.  
+On the end game screen you can share on Facebook.
