@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        //boundary values ​​of floor
+        //Boundary values ​​of floor
         float spawnDownFloorLeftBorder = -4;
         float spawnDownFloorRightBorder = 6;
 
@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour
         float spawnDownFloorYPos = -0.9f;
         float spawnUpFloorYPos = 2.1f;
 
-        //choose random floor and spawn enemy here
+        //Choose random floor and spawn enemy here
         randomFloor = Random.Range(0, 2);
         if (randomFloor == 0)
         {
@@ -120,7 +120,7 @@ public class Enemy : MonoBehaviour
         if (_enemySpeed != 0 && newEnemy != null)
         {
 
-            //movement depends on the floor where it placed (0-bottom, 1 -top)
+            //Movement depends on the floor where it placed (0-bottom, 1 -top)
             if (randomFloor == 0)
             {
                 int bottomFloorBorderXPos = 5;

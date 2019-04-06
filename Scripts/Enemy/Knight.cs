@@ -11,8 +11,9 @@ public class Knight : Enemy, IDamagable<int>
     {
 
         Health = enemyHealth;
-        rb = GetComponent<Rigidbody>();         
-        Physics.IgnoreLayerCollision(enemyLayerNumber, enemyLayerNumber); //no collision between enemies which stay at 9 layer
+        rb = GetComponent<Rigidbody>();
+        //No collision between enemies which stay at the same layer
+        Physics.IgnoreLayerCollision(enemyLayerNumber, enemyLayerNumber); 
     }
     
     private void OnTriggerEnter(Collider other)

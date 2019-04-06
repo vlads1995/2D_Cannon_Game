@@ -6,9 +6,22 @@ public class CannonController : MonoBehaviour
     const int fullTurn = 360;
     const int negative = -1;
     const int startScale = 1;
-
+   
+    public static int _speed
+    {
+        get
+        {
+            return _speed;
+        }
+        set
+        {
+            if (value < 0)
+            {
+                _speed = 0;
+            }
+        }
+    }
     public GameObject forcePanel;
-    public static int _speed;    
     public static bool isCannonChoosen = false;       
     public Touch[] moveTouches;
     public static bool isCanShoot = true;
@@ -23,12 +36,8 @@ public class CannonController : MonoBehaviour
    
     void Update()
     {
-        MoveMobile();                
-    }
-
-    private void FixedUpdate()  //cause Shoot() using physics
-    {
-        Shoot();  
+        MoveMobile();
+        Shoot();
     }
 
     public void GetCannonData(string cannonName)
@@ -52,10 +61,10 @@ public class CannonController : MonoBehaviour
 
     private void MoveMobile()
     {
-        float speedCorrecter = 0.2f;
-        float posCorrecter = 4f;
         if (isCannonChoosen != true) return;
 
+        float speedCorrecter = 0.2f;
+        float posCorrecter = 4f;       
         float xRotAngle = transform.rotation.x * fullTurn / PI;
         float yRotAngle = transform.rotation.y * fullTurn / PI;
 
@@ -83,19 +92,19 @@ public class CannonController : MonoBehaviour
     private void Shoot()
     {
 
-        if (Input.touchCount > 0)
+        if ((Input.touchCount > 0) && (isCanShoot == true))
         {
             fireTouches = Input.touches;
 
             foreach (var currenttouch in fireTouches)
             {
 
-                if ((currenttouch.phase == TouchPhase.Stationary || currenttouch.phase == TouchPhase.Moved) && isCanShoot == true && _maxForce != 0 && currenttouch.position.x < Screen.width / 2)
+                if (((currenttouch.phase == TouchPhase.Stationary) || (currenttouch.phase == TouchPhase.Moved)) && (_maxForce != 0) && (currenttouch.position.x < Screen.width / 2))
                 {
                     FillForcePanel();
                 }
 
-                if (_currentProjectile != null && isCanShoot == true && currenttouch.phase == TouchPhase.Ended && currenttouch.position.x < Screen.width / 2)
+                if ((_currentProjectile != null)  && (currenttouch.phase == TouchPhase.Ended) && (currenttouch.position.x < Screen.width / 2))
                 {
                     forcePanel.transform.localScale = new Vector3(startScale, startScale, startScale);
                     isCanShoot = false;
