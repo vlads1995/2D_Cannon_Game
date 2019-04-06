@@ -2,7 +2,7 @@
 
 public class Enemy : MonoBehaviour  
 {
-    const int negative = -1;
+    const int Negative = -1;
 
     public GameObject newEnemy;        
     public int randomFloor;
@@ -76,24 +76,23 @@ public class Enemy : MonoBehaviour
     public void Shoot()
     {
         _isEnemyCanShoot = true;
-        Rigidbody enemyProjectileRB;
         Vector3 direction =  Camera.main.transform.position - newEnemy.transform.position;
         var newShoot = Instantiate(enemyProjectile, newEnemy.transform.position, Quaternion.identity);
-        enemyProjectileRB = newShoot.GetComponent<Rigidbody>();
-        enemyProjectileRB.AddForce(direction * _enemyShootForce);         
+        var enemyProjectileRb = newShoot.GetComponent<Rigidbody>();
+        enemyProjectileRb.AddForce(direction * _enemyShootForce);         
     }    
 
     public void SpawnEnemy()
     {
         //Boundary values ​​of floor
-        float spawnDownFloorLeftBorder = -4;
-        float spawnDownFloorRightBorder = 6;
+        const float spawnDownFloorLeftBorder = -4;
+        const float spawnDownFloorRightBorder = 6;
 
-        float spawnUpFloorLeftBorder = -2;
-        float spawnUpFloorRightBorder = 3;
+        const float spawnUpFloorLeftBorder = -2;
+        const float spawnUpFloorRightBorder = 3;
 
-        float spawnDownFloorYPos = -0.9f;
-        float spawnUpFloorYPos = 2.1f;
+        const float spawnDownFloorYPos = -0.9f;
+        const float spawnUpFloorYPos = 2.1f;
 
         //Choose random floor and spawn enemy here
         randomFloor = Random.Range(0, 2);
@@ -115,7 +114,7 @@ public class Enemy : MonoBehaviour
 
     public void Move()
     {
-        float deltaPos = 0.1f;
+        const float deltaPos = 0.1f;
 
         if (_enemySpeed != 0 && newEnemy != null)
         {
@@ -123,35 +122,36 @@ public class Enemy : MonoBehaviour
             //Movement depends on the floor where it placed (0-bottom, 1 -top)
             if (randomFloor == 0)
             {
-                int bottomFloorBorderXPos = 5;
+                const int bottomFloorBorderXPos = 5;
+
                 newEnemy.transform.Translate(Vector2.right * _enemySpeed * Time.deltaTime);
 
                 if (newEnemy.transform.position.x >= bottomFloorBorderXPos)
                 {
                     newEnemy.transform.position = new Vector3(bottomFloorBorderXPos - deltaPos, newEnemy.transform.position.y, 0);
-                    _enemySpeed = _enemySpeed * negative;
+                    _enemySpeed = _enemySpeed * Negative;
                 }
                 if (newEnemy.transform.position.x <= -bottomFloorBorderXPos)
                 {
                     newEnemy.transform.position = new Vector3(-bottomFloorBorderXPos + deltaPos, newEnemy.transform.position.y, 0);
-                    _enemySpeed = _enemySpeed * negative;
+                    _enemySpeed = _enemySpeed * Negative;
                 }
             }
 
             if (randomFloor == 1)
             {
-                int topFloorBorderXPos = 3;
+                const int topFloorBorderXPos = 3;
                 newEnemy.transform.Translate(Vector2.right * _enemySpeed * Time.deltaTime);
 
                 if (newEnemy.transform.position.x >= topFloorBorderXPos)
                 {
                     newEnemy.transform.position = new Vector3(topFloorBorderXPos - deltaPos, newEnemy.transform.position.y, 0);
-                    _enemySpeed = _enemySpeed * negative;
+                    _enemySpeed = _enemySpeed * Negative;
                 }
                 if (newEnemy.transform.position.x <= -topFloorBorderXPos)
                 {
                     newEnemy.transform.position = new Vector3(-topFloorBorderXPos + deltaPos, newEnemy.transform.position.y, 0);
-                    _enemySpeed = _enemySpeed * negative;
+                    _enemySpeed = _enemySpeed * Negative;
                 }
             }
 

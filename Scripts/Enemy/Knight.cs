@@ -3,15 +3,15 @@
 public class Knight : Enemy, IDamagable<int>
 {
     public int Health { get; set; }
-    
-    Rigidbody rb;
-    [SerializeField] private CannonData[] cannonData;
+
+    private Rigidbody _rb;
+    [SerializeField] private CannonData[] _cannonData;
 
     void Start()
     {
 
         Health = enemyHealth;
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         //No collision between enemies which stay at the same layer
         Physics.IgnoreLayerCollision(enemyLayerNumber, enemyLayerNumber); 
     }
@@ -20,7 +20,7 @@ public class Knight : Enemy, IDamagable<int>
     {        
         if (other.tag == "SlowProjectile")
         {
-            foreach (var currentCannonData in cannonData)
+            foreach (var currentCannonData in _cannonData)
             {
                 if (currentCannonData.CannonName == "SlowCannon")
                 {
@@ -31,7 +31,7 @@ public class Knight : Enemy, IDamagable<int>
 
         if (other.tag == "FastProjectile")
         {
-            foreach (var currentCannonData in cannonData)
+            foreach (var currentCannonData in _cannonData)
             {
                 if (currentCannonData.CannonName == "FastCannon")
                 {

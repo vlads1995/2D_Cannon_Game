@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using Facebook.Unity;
 
 public class FacebookScript : MonoBehaviour

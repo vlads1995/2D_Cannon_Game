@@ -2,25 +2,7 @@
 
 [CreateAssetMenu(menuName = "Enemy")]
 public class EnemyData : ScriptableObject
-{ 
-    
-    [SerializeField]
-    private int enemyHealth;
-    [SerializeField]
-    private int enemySpeed;
-    [SerializeField]
-    private int enemyDamage;
-    [SerializeField]
-    private int enemyShootForce;
-    [SerializeField]
-    private int enemyReloadTime;
-    [SerializeField]
-    private string enemyName;
-    [SerializeField]
-    private GameObject enemyProjectile;
-    [SerializeField]
-    private GameObject enemyModel;
-
+{
     public void Attack()
     {
 
@@ -31,67 +13,27 @@ public class EnemyData : ScriptableObject
 
     }
 
-    public int EnemyHealth
-    {
-        get
-        {
-            return enemyHealth;
-        }
-    }
+    [field: SerializeField]
+    public int EnemyHealth { get; }
 
-    public int EnemySpeed
-    {
-        get
-        {
-            return enemySpeed;
-        }
-    }
+    [field: SerializeField]
+    public int EnemySpeed { get; }
 
-    public int EnemyShootForce
-    {
-        get
-        {
-            return enemyShootForce;
-        }
-    }
+    [field: SerializeField]
+    public int EnemyShootForce { get; }
 
-    public int EnemyDamage
-    {
-        get
-        {
-            return enemyDamage;
-        }
-    }
+    [field: SerializeField]
+    public int EnemyDamage { get; }
 
-    public int EnemyReloadTime
-    {
-        get
-        {
-            return enemyReloadTime;
-        }
-    }
+    [field: SerializeField]
+    public int EnemyReloadTime { get; }
 
-    public string EnemyName
-    {
-        get
-        {
-            return enemyName;
-        }
-    }
+    [field: SerializeField]
+    public string EnemyName { get; }
 
-    public GameObject EnemyProjectile
-    {
-        get
-        {
-            return enemyProjectile;
-        }
-    }
+    [field: SerializeField]
+    public GameObject EnemyProjectile { get; }
 
-    public GameObject EnemyModel
-    {
-        get
-        {
-            return enemyModel;
-        }
-    }
+    [field: SerializeField]
+    public GameObject EnemyModel { get; }
 }

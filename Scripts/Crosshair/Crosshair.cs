@@ -4,7 +4,7 @@ public class Crosshair : CannonController
 {    
     public static Vector3 currentPos;
 
-    private Vector3 newPos;
+    private Vector3 _newPos;
 
     public void LateUpdate()
     {
@@ -15,19 +15,19 @@ public class Crosshair : CannonController
     {
         if (isCannonChoosen != true) return;
 
-        float speedCorrecter = 0.2f;
-        float posCorrecter = 3f;
+        const float speedCorrecter = 0.2f;
+        const float posCorrecter = 3f;
 
-        foreach (var currenttouch in moveTouches)
+        foreach (var touchscreen in moveTouches)
         {
-            if ((currenttouch.phase == TouchPhase.Moved) && (currenttouch.position.x > Screen.width / 2))
+            if ((touchscreen.phase == TouchPhase.Moved) && (touchscreen.position.x > Screen.width / 2))
             {
                 currentPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                newPos = new Vector3(currenttouch.deltaPosition.x * posCorrecter, currenttouch.deltaPosition.y * posCorrecter, 0);
+                _newPos = new Vector3(touchscreen.deltaPosition.x * posCorrecter, touchscreen.deltaPosition.y * posCorrecter, 0);
 
-                if ((currenttouch.deltaPosition.y != 0) || (currenttouch.deltaPosition.x != 0))
+                if ((touchscreen.deltaPosition.y != 0) || (touchscreen.deltaPosition.x != 0))
                 {
-                    transform.position = Vector3.Lerp(currentPos, newPos, _speed * Time.deltaTime * speedCorrecter);
+                    transform.position = Vector3.Lerp(currentPos, _newPos, Speed * Time.deltaTime * speedCorrecter);
                 }
             }
 

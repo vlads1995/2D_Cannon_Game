@@ -3,65 +3,21 @@
 [CreateAssetMenu(menuName = "Cannon")]
 public class CannonData : ScriptableObject
 {
-    [SerializeField]
-    private int speed;
-    [SerializeField]
-    private int maxForce;
-    [SerializeField]
-    private int cannonDamage;
-    [SerializeField]
-    private int reloadTime;
-    [SerializeField]
-    private string cannonName;
-    [SerializeField]
-    private GameObject projectile;
- 
-    public int CannonSpeed
-    {      
-        get
-        {
-            return speed;
-        }
-    }
+    [field: SerializeField]
+    public int CannonSpeed { get; }
 
-    public int CannonForce    
-    {
-        get
-        {
-            return maxForce;
-        }
-    }
+    [field: SerializeField]
+    public int CannonForce { get; }
 
-    public int CannonDamage
-    {
-        get
-        {
-            return cannonDamage;
-        }
-    }
+    [field: SerializeField]
+    public int CannonDamage { get; }
 
-    public int CannonReloadTime
-    {
-        get
-        {
-            return reloadTime;
-        }
-    }
+    [field: SerializeField]
+    public int CannonReloadTime { get; }
 
-    public string CannonName
-    {
-        get
-        {
-            return cannonName;
-        }
-    }
+    [field: SerializeField]
+    public string CannonName { get; }
 
-    public GameObject CannonProjectile
-    { 
-        get
-        {
-            return projectile;
-        }
-    }
-
+    [field: SerializeField]
+    public GameObject CannonProjectile { get; }
 }

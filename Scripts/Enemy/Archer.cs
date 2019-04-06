@@ -2,14 +2,15 @@
 
 public class Archer : Enemy  
 {
-    public int Health { get; set; }    
-    Rigidbody rb;
-    [SerializeField] private CannonData[] cannonData;
+    public int Health { get; set; }
+    private Rigidbody _rb;
+    [SerializeField]
+    private CannonData[] cannonData;
 
     void Start()
     {
         Health = enemyHealth;             
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         Physics.IgnoreLayerCollision(enemyLayerNumber, enemyLayerNumber);
     }       
 

@@ -8,11 +8,11 @@ public class Player : MonoBehaviour, IDamagable<int>
 
     [SerializeField]
     private EnemyData[] _enemyData;
-    private int playerHealth = 10;
+    private int _playerHealth = 10;
 
     public void Start()
     {
-        Health = playerHealth;
+        Health = _playerHealth;
         currentHealth = Health;
     }
 
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour, IDamagable<int>
 
     private void SetNewGameSettings()
     {
-        Health = playerHealth;
+        Health = _playerHealth;
         currentHealth = Health;
         UIManager.Score = 0;
         isGameOver = false;
