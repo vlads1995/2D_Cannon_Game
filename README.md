@@ -5,5 +5,5 @@
 
 On the end game screen you can share on Facebook.
 
-### Note
-Check release if you need .apk file or .zip Unity project
+## Note
+Check release if you need .apk file or .zip Unity project.
