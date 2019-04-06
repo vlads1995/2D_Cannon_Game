@@ -2,7 +2,24 @@
 
 [CreateAssetMenu(menuName = "Enemy")]
 public class EnemyData : ScriptableObject
-{
+{ 
+    [SerializeField]
+    private int _enemyHealth;
+    [SerializeField]
+    private int _enemySpeed;
+    [SerializeField]
+    private int _enemyDamage;
+    [SerializeField]
+    private int _enemyShootForce;
+    [SerializeField]
+    private int _enemyReloadTime;
+    [SerializeField]
+    private string _enemyName;
+    [SerializeField]
+    private GameObject _enemyProjectile;
+    [SerializeField]
+    private GameObject _enemyModel;
+
     public void Attack()
     {
 
@@ -13,27 +30,67 @@ public class EnemyData : ScriptableObject
 
     }
 
-    [field: SerializeField]
-    public int EnemyHealth { get; }
+    public int EnemyHealth
+    {
+        get
+        {
+            return _enemyHealth;
+        }
+    }
 
-    [field: SerializeField]
-    public int EnemySpeed { get; }
+    public int EnemySpeed
+    {
+        get
+        {
+            return _enemySpeed;
+        }
+    }
 
-    [field: SerializeField]
-    public int EnemyShootForce { get; }
+    public int EnemyShootForce
+    {
+        get
+        {
+            return _enemyShootForce;
+        }
+    }
 
-    [field: SerializeField]
-    public int EnemyDamage { get; }
+    public int EnemyDamage
+    {
+        get
+        {
+            return _enemyDamage;
+        }
+    }
 
-    [field: SerializeField]
-    public int EnemyReloadTime { get; }
+    public int EnemyReloadTime
+    {
+        get
+        {
+            return _enemyReloadTime;
+        }
+    }
 
-    [field: SerializeField]
-    public string EnemyName { get; }
+    public string EnemyName
+    {
+        get
+        {
+            return _enemyName;
+        }
+    }
 
-    [field: SerializeField]
-    public GameObject EnemyProjectile { get; }
+    public GameObject EnemyProjectile
+    {
+        get
+        {
+            return _enemyProjectile;
+        }
+    }
 
-    [field: SerializeField]
-    public GameObject EnemyModel { get; }
+    public GameObject EnemyModel
+    {
+        get
+        {
+            return _enemyModel;
+        }
+    }
 }

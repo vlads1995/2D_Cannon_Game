@@ -3,20 +3,21 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    private const float SpawnTime = 8f;
+
     [SerializeField]
     private GameObject _enemyPlaceholer;
-    private float _spawnTime = 8f;
     
-    void Start()
+    private void Start()
     {
-        StartCoroutine(StartSpawn()); 
+        StartCoroutine(Spawn()); 
     }
 
-    private IEnumerator StartSpawn()
+    public IEnumerator Spawn()
     {
-        yield return new WaitForSeconds(_spawnTime);
+        yield return new WaitForSeconds(SpawnTime);
         Instantiate(_enemyPlaceholer, Vector3.zero, Quaternion.identity);
-        StartCoroutine(StartSpawn());
+        StartCoroutine(Spawn());
     }
 
 }

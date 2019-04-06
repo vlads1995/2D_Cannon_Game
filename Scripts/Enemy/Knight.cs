@@ -7,13 +7,12 @@ public class Knight : Enemy, IDamagable<int>
     private Rigidbody _rb;
     [SerializeField] private CannonData[] _cannonData;
 
-    void Start()
+    private void Start()
     {
 
-        Health = enemyHealth;
-        _rb = GetComponent<Rigidbody>();
-        //No collision between enemies which stay at the same layer
-        Physics.IgnoreLayerCollision(enemyLayerNumber, enemyLayerNumber); 
+        Health = EnemyHealth;
+        _rb = GetComponent<Rigidbody>();         
+        Physics.IgnoreLayerCollision(EnemyLayerNumber, EnemyLayerNumber); 
     }
     
     private void OnTriggerEnter(Collider other)

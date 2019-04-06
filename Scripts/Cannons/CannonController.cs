@@ -7,31 +7,21 @@ public class CannonController : MonoBehaviour
     private const int Negative = -1;
     private const int StartScale = 1;
    
-    public static int Speed
-    {
-        get => Speed;
-        set
-        {
-            if (value < 0)
-            {
-                Speed = 0;
-            }
-        }
-    }
-    public GameObject forcePanel;
-    public static bool isCannonChoosen = false;       
-    public Touch[] moveTouches;
-    public static bool isCanShoot = true;
-
+    public GameObject ForcePanel;
+    public static int Speed;    
+    public static bool IsCannonChoosen = false;       
+    public Touch[] MoveTouches;
+    public static bool IsCanShoot = true;
+    
     private Touch[] _fireTouches;
     private int _maxForce;
     private float _currentForce;
     private string _cannonName;
     private int _reloadTime;
     private GameObject _currentProjectile;    
-    [SerializeField] private CannonData[] _cannonData;     
-   
-    void Update()
+    [SerializeField] private CannonData[] _cannonData;
+
+    private void Update()
     {
         MoveMobile();
         Shoot();
@@ -50,7 +40,7 @@ public class CannonController : MonoBehaviour
                     _maxForce = cannonInDatabase.CannonForce;
                     _reloadTime = cannonInDatabase.CannonReloadTime;
                     _currentProjectile = cannonInDatabase.CannonProjectile;
-                    isCannonChoosen = true;
+                    IsCannonChoosen = true;
                 }
             }
         }
@@ -58,25 +48,25 @@ public class CannonController : MonoBehaviour
 
     private void MoveMobile()
     {
-        if (isCannonChoosen != true) return;
+        if (IsCannonChoosen != true) return;
 
         const float speedCorrecter = 0.2f;
-        const float posCorrecter = 4f;       
+        const float posCorrecter = 4f;
         var xRotAngle = transform.rotation.x * FullTurn / Pi;
         var yRotAngle = transform.rotation.y * FullTurn / Pi;
 
         if (Input.touchCount > 0)
         {
-            moveTouches = Input.touches;
+            MoveTouches = Input.touches;
 
-            foreach (var touchscreen in moveTouches)
+            foreach (var touchscreen in MoveTouches)
             {
                 if (touchscreen.phase == TouchPhase.Moved && touchscreen.position.x > Screen.width / 2)
                 {
                     var from = Quaternion.Euler(xRotAngle, yRotAngle, 0);
                     var to = Quaternion.Euler(Negative * touchscreen.deltaPosition.y * posCorrecter, touchscreen.deltaPosition.x * posCorrecter, 0);
 
-                    if (touchscreen.deltaPosition.y != 0 || touchscreen.deltaPosition.x != 0)
+                    if (touchscreen.deltaPosition != Vector2.zero)
                     {
                         transform.rotation = Quaternion.Lerp(from, to, Time.deltaTime * Speed * speedCorrecter);
                     }
@@ -86,30 +76,31 @@ public class CannonController : MonoBehaviour
         }
     }
 
+    
     private void Shoot()
     {
+        if (IsCannonChoosen != true) return;
 
-        if ((Input.touchCount > 0) && (isCanShoot == true))
+        if (Input.touchCount > 0)
         {
             _fireTouches = Input.touches;
 
             foreach (var touchscreen in _fireTouches)
             {
-
-                if (((touchscreen.phase == TouchPhase.Stationary) || (touchscreen.phase == TouchPhase.Moved)) && (_maxForce != 0) && (touchscreen.position.x < Screen.width / 2))
+               
+                if (((touchscreen.phase == TouchPhase.Stationary) || (touchscreen.phase == TouchPhase.Moved)) && (IsCanShoot == true) && (_maxForce != 0) && (touchscreen.position.x < Screen.width / 2))
                 {
                     FillForcePanel();
                 }
 
-                if ((_currentProjectile != null)  && (touchscreen.phase == TouchPhase.Ended) && (touchscreen.position.x < Screen.width / 2))
+                if ((_currentProjectile != null) && (IsCanShoot == true) && (touchscreen.phase == TouchPhase.Ended) && (touchscreen.position.x < Screen.width / 2))
                 {
-                    forcePanel.transform.localScale = new Vector3(StartScale, StartScale, StartScale);
-                    isCanShoot = false;
-                    var direction = Crosshair.currentPos - SpawnPoint.spawnPointPosition;
-                    var projectile = Instantiate(_currentProjectile, SpawnPoint.spawnPointPosition, Quaternion.identity);
+                    ForcePanel.transform.localScale = new Vector3(StartScale, StartScale, StartScale);
+                    IsCanShoot = false;
+                    var direction = Crosshair.CurrentPos - SpawnPoint.SpawnPointPosition;
+                    var projectile = Instantiate(_currentProjectile, SpawnPoint.SpawnPointPosition, Quaternion.identity);
                     var projectileRb = projectile.GetComponent<Rigidbody>();
                     projectileRb.AddForce(direction * _currentForce);
-
 
                     Invoke("Reload", _reloadTime);
                     _currentForce = 0f;
@@ -120,7 +111,6 @@ public class CannonController : MonoBehaviour
 
     }
 
-
     private void FillForcePanel()
     {
         const int forcePanelMaxScale = 30;
@@ -128,13 +118,13 @@ public class CannonController : MonoBehaviour
         if (_currentForce <= _maxForce )
         {
             _currentForce += startForce;
-            forcePanel.transform.localScale = new Vector3(StartScale, _currentForce / _maxForce * forcePanelMaxScale, StartScale);
+            ForcePanel.transform.localScale = new Vector3(StartScale, _currentForce / _maxForce * forcePanelMaxScale, StartScale);
         }               
     }
 
     private void Reload()
     {
-        isCanShoot = true;
+        IsCanShoot = true;
     }    
     
 }

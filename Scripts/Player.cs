@@ -2,18 +2,19 @@
 
 public class Player : MonoBehaviour, IDamagable<int>
 {
+    private const int PlayerStartHealth = 10;
+
     public int Health { get; set; }    
-    public static bool isGameOver = false;
-    public static int currentHealth;
+    public static bool IsGameOver = false;
+    public static int CurrentHealth;
 
     [SerializeField]
     private EnemyData[] _enemyData;
-    private int _playerHealth = 10;
-
+    
     public void Start()
     {
-        Health = _playerHealth;
-        currentHealth = Health;
+        Health = PlayerStartHealth;
+        CurrentHealth = Health;
     }
 
     public void Update()
@@ -37,30 +38,30 @@ public class Player : MonoBehaviour, IDamagable<int>
 
     private void CheckState()
     {
-        if (UIManager.isNewGame == true)
+        if (UIManager.IsNewGame == true)
         {
             SetNewGameSettings();
         }
 
         if (Health <= 0)
         {
-            isGameOver = true;
+            IsGameOver = true;
         }
     }
 
     private void SetNewGameSettings()
     {
-        Health = _playerHealth;
-        currentHealth = Health;
+        Health = PlayerStartHealth;
+        CurrentHealth = Health;
         UIManager.Score = 0;
-        isGameOver = false;
-        UIManager.isNewGame = false;
+        IsGameOver = false;
+        UIManager.IsNewGame = false;
         Time.timeScale = 1;
     }
 
     public void Damage(int damageAmount)
     {        
         Health -= damageAmount;
-        currentHealth = Health;
+        CurrentHealth = Health;
     }
 }

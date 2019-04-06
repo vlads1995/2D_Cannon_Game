@@ -2,10 +2,10 @@
 
 public class SpawnPoint : MonoBehaviour
 {
-    public static Vector3 spawnPointPosition;
+    public static Vector3 SpawnPointPosition;
 
-    void Update()
+    private void Update()
     {
-        spawnPointPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        SpawnPointPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 }

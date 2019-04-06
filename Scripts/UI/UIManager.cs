@@ -4,52 +4,52 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {    
-    public static bool isNewGame = false;
+    public static bool IsNewGame = false;
     public static int Score = 0;
 
     [SerializeField]
-    private GameObject cannonChooseMenu;
+    private GameObject _cannonChooseMenu;
     [SerializeField]
-    private GameObject gameOverMenu;
+    private GameObject _gameOverMenu;
     [SerializeField]
-    private Text scoreText;
+    private Text _scoreText;
     [SerializeField]
-    private Text gameOverScoreText;
+    private Text _gameOverScoreText;
     [SerializeField]
-    private Text currentLives;   
+    private Text _currentLives;   
      
     private void Update()
     {
         UpdateUIText();
         
-        if (Player.isGameOver == true && isNewGame == false)
+        if (Player.IsGameOver == true && IsNewGame == false)
         {
             Time.timeScale = 0;
-            gameOverScoreText.text = "Score: " + Score;
-            gameOverMenu.SetActive(true);
+            _gameOverScoreText.text = "Score: " + Score;
+            _gameOverMenu.SetActive(true);
         }
     }
     
 
     private void UpdateUIText()
     {
-        scoreText.text = "Score: " + Score;
-        currentLives.text = "Health: " + Player.currentHealth;
+        _scoreText.text = "Score: " + Score;
+        _currentLives.text = "Health: " + Player.CurrentHealth;
     }
 
     public void ExitToMainMenu()
     {         
         SceneManager.LoadScene("MainMenu");
-        gameOverMenu.SetActive(false);
+        _gameOverMenu.SetActive(false);
     }
 
     public void CannonChooseMenu()
     {
-        cannonChooseMenu.SetActive(true);
+        _cannonChooseMenu.SetActive(true);
     }
 
     public void CloseMenu()
     {
-        cannonChooseMenu.SetActive(false);
+        _cannonChooseMenu.SetActive(false);
     }
 }

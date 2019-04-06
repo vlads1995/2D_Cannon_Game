@@ -43,10 +43,10 @@ public class FacebookScript : MonoBehaviour
         
         FB.ShareLink
         (            
-        contentURL: new System.Uri("https://github.com/vlads1995/Cannon_Game"), 
-        contentTitle: "Check My Score!",
-        contentDescription: "Score: " + UIManager.Score                   
-         );
+            contentURL: new System.Uri("https://github.com/vlads1995/Unity_Builds"), 
+            contentTitle: "Check My Score!",
+            contentDescription: "Score: " + UIManager.Score                   
+        );
 
     }    
    

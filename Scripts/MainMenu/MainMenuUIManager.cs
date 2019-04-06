@@ -5,7 +5,7 @@ public class MainMenuUIManager : MonoBehaviour
 {
     public void NewGame()
     {
-        UIManager.isNewGame = true;
+        UIManager.IsNewGame = true;
         SceneManager.LoadScene("Game");
     }
 
